@@ -12,7 +12,7 @@ namespace Stocks.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Password=1346;Persist Security Info=True;User ID=sa;Initial Catalog=Stocks;Data Source=(localdb)/mssqllocaldb");
+            optionsBuilder.UseSqlServer("Password=1234;Persist Security Info=True;User ID=sa;Initial Catalog=Stocks;Data Source=DESKTOP-JQE1K0H/SQLEXPRESS");
         }
     }
 }
