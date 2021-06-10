@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stocks.Libraries;
 using Stocks.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -35,26 +37,23 @@ namespace Stocks.Controllers
         [HttpGet("GetInfoStocks/")]
         public JsonResult GetInfoStocks()
         {
-            WebClient wc = new WebClient();
+            StatusInvest statusInvestInstance = new StatusInvest();
 
-            string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };
+            /*string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };*/
+            string[] companies = { "MELI34" };
 
             var fonte = String.Empty;
-            var patternCurrentValue = @"Valor atual<\/h3>\s<span class=\""icon\"">R.<\/span>\s<strong class=\""value\"">(\d+,\d+)<\/strong>";
-
-            var patternParidade = @"(\d)\sStock = (\d+)";
 
             List<Stock> stockList = new List<Stock>();
 
+            var resultado = new ArrayList();
+
             for (int i = 0; i < companies.Length; i++)
             {
-                fonte = wc.DownloadString($"https://statusinvest.com.br/bdrs/{companies[i]}");
+                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"https://statusinvest.com.br/bdrs/{companies[i]}");
 
-                var rgx2 = new Regex(patternCurrentValue);
-                var rgxEncontrados2 = rgx2.Matches(fonte);
-
-                var rgx = new Regex(patternParidade);
-                var rgxEncontrados = rgx.Matches(fonte);
+                var rgxEncontrados2 = RegularExpresion.GetMatches(fonte, statusInvestInstance.PatternCurrentValue);
+                var rgxEncontrados = RegularExpresion.GetMatches(fonte, statusInvestInstance.PatterParity); 
 
                 int paridadeAcaoPrincial = Int32.Parse(rgxEncontrados[0].Groups[1].Value);
                 int paridadeAcaoBDR = Int32.Parse(rgxEncontrados[0].Groups[2].Value);
@@ -76,11 +75,19 @@ namespace Stocks.Controllers
                     }
                 };
 
+                resultado.Add(new
+                {
+                    Id = i+1,
+                    Ticket = companies[i],
+                    StockCurrentValue = stockCurrentValue,
+                    Paridade = $"{paridadeAcaoPrincial} Stock = {paridadeAcaoBDR} BDR's"
+                });
+
                 /*stockList.Add(new Stock(companies[i], Double.Parse(stockCurrentValue), paridadeAcaoPrincial, paridadeAcaoBDR));*/
-                stockList.Add(stock);
+                /*stockList.Add(stock);*/
             }
 
-            return Json(stockList);
+            return Json(resultado);
         }
     }
 }
