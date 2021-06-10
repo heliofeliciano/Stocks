@@ -32,6 +32,8 @@ namespace Stocks
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stocks", Version = "v1" });
             });
+
+            /*services.AddControllersWithViews();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +56,13 @@ namespace Stocks
             {
                 endpoints.MapControllers();
             });
+
+            /*app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            });*/
         }
     }
 }
