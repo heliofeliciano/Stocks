@@ -5,7 +5,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Stocks.Controllers
 {
@@ -34,13 +36,20 @@ namespace Stocks.Controllers
             return Json(stock);
         }
 
+        [HttpGet("GetStockHttpClient/")]
+        public async Task<JsonResult> GetStockHttpClient()
+        {
+            HttpClient httpClient = new HttpClient();
+            var result = await httpClient.GetStringAsync($"https://statusinvest.com.br/bdrs/MELI34");
+
+            return Json(result);
+        }
+
         [HttpGet("GetInfoStocks/")]
         public JsonResult GetInfoStocks()
         {
-            StatusInvest statusInvestInstance = new StatusInvest();
-
-            /*string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };*/
-            string[] companies = { "MELI34" };
+            string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };
+            /*string[] companies = { "MELI34" };*/
 
             var fonte = String.Empty;
 
@@ -50,14 +59,11 @@ namespace Stocks.Controllers
 
             for (int i = 0; i < companies.Length; i++)
             {
-                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"https://statusinvest.com.br/bdrs/{companies[i]}");
+                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{StatusInvest.UrlBDR}/{companies[i]}");
 
-                var rgxEncontrados2 = RegularExpresion.GetMatches(fonte, statusInvestInstance.PatternCurrentValue);
-                var rgxEncontrados = RegularExpresion.GetMatches(fonte, statusInvestInstance.PatterParity); 
-
-                int paridadeAcaoPrincial = Int32.Parse(rgxEncontrados[0].Groups[1].Value);
-                int paridadeAcaoBDR = Int32.Parse(rgxEncontrados[0].Groups[2].Value);
-                var stockCurrentValue = rgxEncontrados2[0].Groups[1].Value;
+                int paridadeAcaoPrincial = Int32.Parse(StatusInvest.getParityMainStock(fonte));
+                int paridadeAcaoBDR = Int32.Parse(StatusInvest.getParityBDRStock(fonte));
+                var stockCurrentValue = StatusInvest.getCurrentValue(fonte);
 
                 Stock stock = new Stock()
                 {
