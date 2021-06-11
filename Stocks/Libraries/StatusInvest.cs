@@ -7,10 +7,10 @@ namespace Stocks.Libraries
 {
     public static class StatusInvest
     {
-        public static string PatternCurrentValue 
+        public static string PatternCurrentValueBDR 
         {
             get { return @"Valor atual<\/h3>\s<span class=\""icon\"">R.<\/span>\s<strong class=\""value\"">(\d+,\d+)<\/strong>"; }
-            private set { PatternCurrentValue = value;  }
+            private set { PatternCurrentValueBDR = value;  }
         }
         public static string PatterParity
         {
@@ -18,15 +18,15 @@ namespace Stocks.Libraries
             private set { PatterParity = value; }
         }
 
-        public static string Site
+        public static string UrlBDR
         {
             get { return "https://statusinvest.com.br/bdrs"; }
-            private set { Site = value; }
+            private set { UrlBDR = value; }
         }
 
         public static string getCurrentValue(string content)
         {
-            var resultado = RegularExpresion.GetMatches(content, PatternCurrentValue);
+            var resultado = RegularExpresion.GetMatches(content, PatternCurrentValueBDR);
             return resultado[0].Groups[1].Value;
         }
         
