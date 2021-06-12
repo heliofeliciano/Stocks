@@ -36,6 +36,14 @@ namespace Stocks.Controllers
             return Json(stock);
         }
 
+        [HttpGet("InsertingData")]
+        public void InsertingData()
+        {
+            var data = new DataContent();
+            data.InsertingData();
+
+        }
+
         [HttpGet("GetStockHttpClient/")]
         public async Task<JsonResult> GetStockHttpClient()
         {
