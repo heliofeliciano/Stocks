@@ -9,8 +9,8 @@ using Stocks.Data;
 namespace Stocks.Migrations
 {
     [DbContext(typeof(StockContext))]
-    [Migration("20210608024547_initial")]
-    partial class initial
+    [Migration("20210614015834_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,15 +27,13 @@ namespace Stocks.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdentifyId")
-                        .HasColumnType("int");
+                    b.Property<string>("CNPJ")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentifyId");
 
                     b.ToTable("Companies");
                 });
@@ -55,14 +53,14 @@ namespace Stocks.Migrations
                     b.ToTable("HomeMarkets");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Identify", b =>
+            modelBuilder.Entity("Stocks.Models.Identity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -98,17 +96,6 @@ namespace Stocks.Migrations
                     b.ToTable("Stocks");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Company", b =>
-                {
-                    b.HasOne("Stocks.Models.Identify", "Identify")
-                        .WithMany()
-                        .HasForeignKey("IdentifyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Identify");
-                });
-
             modelBuilder.Entity("Stocks.Models.Stock", b =>
                 {
                     b.HasOne("Stocks.Models.Company", "Company")
@@ -118,7 +105,7 @@ namespace Stocks.Migrations
                         .IsRequired();
 
                     b.HasOne("Stocks.Models.HomeMarket", "HomeMarket")
-                        .WithMany()
+                        .WithMany("Stocks")
                         .HasForeignKey("HomeMarketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -126,6 +113,11 @@ namespace Stocks.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("HomeMarket");
+                });
+
+            modelBuilder.Entity("Stocks.Models.HomeMarket", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 #pragma warning restore 612, 618
         }

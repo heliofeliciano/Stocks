@@ -2,10 +2,24 @@
 
 namespace Stocks.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CNPJ = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "HomeMarkets",
                 columns: table => new
@@ -25,31 +39,11 @@ namespace Stocks.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Identifies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdentifyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Companies_Identifies_IdentifyId",
-                        column: x => x.IdentifyId,
-                        principalTable: "Identifies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,11 +75,6 @@ namespace Stocks.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_IdentifyId",
-                table: "Companies",
-                column: "IdentifyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Stocks_CompanyId",
                 table: "Stocks",
                 column: "CompanyId");
@@ -99,6 +88,9 @@ namespace Stocks.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Identifies");
+
+            migrationBuilder.DropTable(
                 name: "Stocks");
 
             migrationBuilder.DropTable(
@@ -106,9 +98,6 @@ namespace Stocks.Migrations
 
             migrationBuilder.DropTable(
                 name: "HomeMarkets");
-
-            migrationBuilder.DropTable(
-                name: "Identifies");
         }
     }
 }
