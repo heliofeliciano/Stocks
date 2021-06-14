@@ -8,7 +8,7 @@ namespace Stocks.Data
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<HomeMarket> HomeMarkets { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Identify> Identifies { get; set; }
+        public DbSet<Identity> Identifies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

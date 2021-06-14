@@ -61,15 +61,9 @@ namespace Stocks.Libraries
                 Name = "B3"
             };
 
-            var identify = new Identify()
-            {
-                Name = "CNPJ"
-            };
-
             var company = new Company()
             {
                 Name = "PETROBRAS",
-                Identify = identify
             };
 
             var stock = new Stock()
@@ -84,7 +78,6 @@ namespace Stocks.Libraries
             using (var context = new StockContext())
             {
                 context.HomeMarkets.Add(homeMarket);
-                context.Identifies.Add(identify);
                 context.Companies.Add(company);
                 context.Stocks.Add(stock);
 

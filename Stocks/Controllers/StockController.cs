@@ -56,8 +56,10 @@ namespace Stocks.Controllers
         [HttpGet("GetInfoStocks/")]
         public JsonResult GetInfoStocks()
         {
-            string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };
-            /*string[] companies = { "MELI34" };*/
+            /*string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };*/
+            string[] companies = { "PETR4", "BBAS3", "VALE3", "BRAP4", "GUAR3", "EGIE3", "PETZ3", "SHUL4", "BRSR6", "COGN3", "MYPK3", "SUZB3", "BRPR3", "BPAC11", "ENBR3", "SEER3", "ITUB4", "ITSA4" };
+            /*var type = "BDR";*/
+            var type = "Acao";
 
             var fonte = String.Empty;
 
@@ -67,38 +69,38 @@ namespace Stocks.Controllers
 
             for (int i = 0; i < companies.Length; i++)
             {
-                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{StatusInvest.UrlBDR}/{companies[i]}");
+                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{StatusInvest.getUrl(type)}/{companies[i]}");
 
-                int paridadeAcaoPrincial = Int32.Parse(StatusInvest.getParityMainStock(fonte));
-                int paridadeAcaoBDR = Int32.Parse(StatusInvest.getParityBDRStock(fonte));
+                var paridadeAcaoPrincial = StatusInvest.getParityMainStock(fonte);
+                var paridadeAcaoBDR = StatusInvest.getParityBDRStock(fonte);
                 var stockCurrentValue = StatusInvest.getCurrentValue(fonte);
+                var stockCompanyName = StatusInvest.getCompanyName(fonte);
+                var stockCompanyCNPJ = StatusInvest.getCompanyCNPJ(fonte);
 
-                Stock stock = new Stock()
+                /*Stock stock = new Stock()
                 {
                     Id = i,
                     Company = new Company()
                     {
                         Id = i,
-                        Name = companies[i]
+                        Name = stockCompanyName,
+                        CNPJ = stockCompanyCNPJ
                     },
-                    Ticker = companies[i],
-                    HomeMarket = new HomeMarket()
-                    {
-                        Id = 1,
-                        Name = "NASDAQ"
-                    }
+                    Ticker = companies[i]
                 };
+                stockList.Add(stock);*/
 
                 resultado.Add(new
                 {
-                    Id = i+1,
+                    Id = i + 1,
                     Ticket = companies[i],
                     StockCurrentValue = stockCurrentValue,
+                    CompanyCNPJ = stockCompanyCNPJ,
+                    CompanyName = stockCompanyName,
                     Paridade = $"{paridadeAcaoPrincial} Stock = {paridadeAcaoBDR} BDR's"
                 });
 
-                /*stockList.Add(new Stock(companies[i], Double.Parse(stockCurrentValue), paridadeAcaoPrincial, paridadeAcaoBDR));*/
-                /*stockList.Add(stock);*/
+
             }
 
             return Json(resultado);
