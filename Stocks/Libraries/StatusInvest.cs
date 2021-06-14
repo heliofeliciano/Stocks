@@ -7,39 +7,107 @@ namespace Stocks.Libraries
 {
     public static class StatusInvest
     {
-        public static string PatternCurrentValueBDR 
+        private static string PatternCurrentValueBDR 
         {
             get { return @"Valor atual<\/h3>\s<span class=\""icon\"">R.<\/span>\s<strong class=\""value\"">(\d+,\d+)<\/strong>"; }
-            private set { PatternCurrentValueBDR = value;  }
+            set { PatternCurrentValueBDR = value;  }
         }
-        public static string PatterParity
+        private static string PatternParity
         {
             get { return @"(\d)\sStock = (\d+)"; }
-            private set { PatterParity = value; }
+            set { PatternParity = value; }
         }
 
-        public static string UrlBDR
+        private static string PatternCompanyName
+        {
+            get { return @"<small>([A-Z\s.]+)<\/small>"; }
+            set { PatternCompanyName= value; }
+        }
+        
+        private static string PatternCompanyCNPJ
+        {
+            get { return @"([0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[-][0-9]{2})"; }
+            set { PatternCompanyCNPJ = value; }
+        }
+
+        private static string UrlBDR
         {
             get { return "https://statusinvest.com.br/bdrs"; }
-            private set { UrlBDR = value; }
+            set { UrlBDR = value; }
+        }
+        
+        private static string UrlAcao
+        {
+            get { return "https://statusinvest.com.br/acoes"; }
+            set { UrlAcao = value; }
         }
 
+        public static string getUrl(string type)
+        {
+            if (type == "BDR")
+            {
+                return UrlBDR;
+            } else if(type == "Acao")
+            {
+                return UrlAcao;
+            }
+
+            return String.Empty;
+        }
+        
         public static string getCurrentValue(string content)
         {
             var resultado = RegularExpresion.GetMatches(content, PatternCurrentValueBDR);
+            if (resultado.Count == 0)
+            {
+                return "Padrao nao encontrado";
+            }
+
             return resultado[0].Groups[1].Value;
         }
         
-        public static string getParityMainStock(string content)
+        public static int getParityMainStock(string content)
         {
-            var resultado = RegularExpresion.GetMatches(content, PatterParity);
+            var resultado = RegularExpresion.GetMatches(content, PatternParity);
+            if (resultado.Count == 0)
+            {
+                return 0;
+            }
+
+            return Int32.Parse(resultado[0].Groups[1].Value);
+        }
+        
+        public static int getParityBDRStock(string content)
+        {
+            var resultado = RegularExpresion.GetMatches(content, PatternParity);
+            if (resultado.Count == 0)
+            {
+                return 0;
+            }
+
+            return Int32.Parse(resultado[0].Groups[2].Value);
+        }
+        
+        public static string getCompanyName(string content)
+        {
+            var resultado = RegularExpresion.GetMatches(content, PatternCompanyName);
+            if (resultado.Count == 0)
+            {
+                return "Padrao nao encontrado";
+            }
+
             return resultado[0].Groups[1].Value;
         }
         
-        public static string getParityBDRStock(string content)
+        public static string getCompanyCNPJ(string content)
         {
-            var resultado = RegularExpresion.GetMatches(content, PatterParity);
-            return resultado[0].Groups[2].Value;
+            var resultado = RegularExpresion.GetMatches(content, PatternCompanyCNPJ);
+            if (resultado.Count == 0)
+            {
+                return "Padrao nao encontrado";
+            }
+
+            return resultado[0].Groups[1].Value;
         }
     }
 }
