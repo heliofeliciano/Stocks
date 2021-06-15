@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stocks.Data;
 using Stocks.Libraries;
 using Stocks.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Stocks.Controllers
@@ -20,11 +19,12 @@ namespace Stocks.Controllers
             {
                 Id = 1,
                 Ticker = "PETR4",
-                Type = "ON",
+                Type = "PN",
                 Company = new Company()
                 {
                     Id = 1,
-                    Name = "PETROBRAS"
+                    Name = "PETROBRAS",
+                    DocumentNumber = "123456789"
                 },
                 HomeMarket = new HomeMarket()
                 {
@@ -56,10 +56,10 @@ namespace Stocks.Controllers
         [HttpGet("GetInfoStocks/")]
         public JsonResult GetInfoStocks()
         {
-            /*string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };*/
-            string[] companies = { "PETR4", "BBAS3", "VALE3", "BRAP4", "GUAR3", "EGIE3", "PETZ3", "SHUL4", "BRSR6", "COGN3", "MYPK3", "SUZB3", "BRPR3", "BPAC11", "ENBR3", "SEER3", "ITUB4", "ITSA4" };
-            /*var type = "BDR";*/
-            var type = "Acao";
+            string[] companies = { "AAPL34", "AMZO34", "MELI34", "FBOK34", "BKNG34", "JDCO34", "SSFO34", "GOGL34" };
+            /*string[] companies = { "PETR4", "BBAS3", "VALE3", "BRAP4", "GUAR3", "EGIE3", "PETZ3", "SHUL4", "BRSR6", "COGN3", "MYPK3", "SUZB3", "BRPR3", "BPAC11", "ENBR3", "SEER3", "ITUB4", "ITSA4" };*/
+            var type = "BDR";
+            /*var type = "Acao";*/
 
             var fonte = String.Empty;
 
@@ -69,13 +69,13 @@ namespace Stocks.Controllers
 
             for (int i = 0; i < companies.Length; i++)
             {
-                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{StatusInvest.getUrl(type)}/{companies[i]}");
+                fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{StatusInvestContext.getUrl(type)}/{companies[i]}");
 
-                var paridadeAcaoPrincial = StatusInvest.getParityMainStock(fonte);
-                var paridadeAcaoBDR = StatusInvest.getParityBDRStock(fonte);
-                var stockCurrentValue = StatusInvest.getCurrentValue(fonte);
-                var stockCompanyName = StatusInvest.getCompanyName(fonte);
-                var stockCompanyCNPJ = StatusInvest.getCompanyCNPJ(fonte);
+                var paridadeAcaoPrincial = StatusInvestContext.getParityMainStock(fonte);
+                var paridadeAcaoBDR = StatusInvestContext.getParityBDRStock(fonte);
+                var stockCurrentValue = StatusInvestContext.getCurrentValue(fonte);
+                var stockCompanyName = StatusInvestContext.getCompanyName(fonte);
+                var stockCompanyCNPJ = StatusInvestContext.getCompanyCNPJ(fonte);
 
                 /*Stock stock = new Stock()
                 {

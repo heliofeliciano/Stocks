@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Stocks.Libraries;
+using System;
 
-namespace Stocks.Libraries
+namespace Stocks.Data
 {
-    public static class StatusInvest
+    public static class StatusInvestContext
     {
         private static string PatternCurrentValueBDR 
         {

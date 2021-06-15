@@ -9,7 +9,7 @@ using Stocks.Data;
 namespace Stocks.Migrations
 {
     [DbContext(typeof(StockContext))]
-    [Migration("20210614015834_Initial")]
+    [Migration("20210615024037_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace Stocks.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CNPJ")
+                    b.Property<string>("DocumentNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -51,21 +51,6 @@ namespace Stocks.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HomeMarkets");
-                });
-
-            modelBuilder.Entity("Stocks.Models.Identity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Numero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Identifies");
                 });
 
             modelBuilder.Entity("Stocks.Models.Stock", b =>

@@ -16,7 +16,8 @@ namespace Stocks.Libraries
                 Company = new Company()
                 {
                     Id = 1,
-                    Name = "PETROBRAS"
+                    Name = "PETROBRAS",
+                    DocumentNumber = "123456789"
                 },
                 Ticker = "PETR4"
             });
@@ -26,7 +27,8 @@ namespace Stocks.Libraries
                 Company = new Company()
                 {
                     Id = 1,
-                    Name = "GUARARAPES"
+                    Name = "GUARARAPES",
+                    DocumentNumber = "123456789"
                 },
                 Ticker = "GUAR3"
             });
@@ -36,7 +38,8 @@ namespace Stocks.Libraries
                 Company = new Company()
                 {
                     Id = 1,
-                    Name = "VALE"
+                    Name = "VALE",
+                    DocumentNumber = "123456789"
                 },
                 Ticker = "VALE3"
             });
@@ -46,9 +49,10 @@ namespace Stocks.Libraries
                 Company = new Company()
                 {
                     Id = 1,
-                    Name = "JD.COM"
+                    Name = "JD.COM",
+                    DocumentNumber = "123456789"
                 },
-                Ticker = "JDCO34"
+                Ticker = "JD"
             });
 
             return list;
@@ -61,14 +65,16 @@ namespace Stocks.Libraries
                 Name = "B3"
             };
 
-            var company = new Company()
+            var companyCNPJ = new Company()
             {
+                Id = 1,
                 Name = "PETROBRAS",
+                DocumentNumber = "123456789"
             };
 
             var stock = new Stock()
             {
-                Company = company,
+                Company = companyCNPJ,
                 HomeMarket = homeMarket,
                 Ticker = "PETR4"
             };
@@ -78,7 +84,7 @@ namespace Stocks.Libraries
             using (var context = new StockContext())
             {
                 context.HomeMarkets.Add(homeMarket);
-                context.Companies.Add(company);
+                context.Companies.Add(companyCNPJ);
                 context.Stocks.Add(stock);
 
                 context.SaveChanges();

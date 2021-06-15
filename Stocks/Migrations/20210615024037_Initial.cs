@@ -13,7 +13,7 @@ namespace Stocks.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CNPJ = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DocumentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,19 +31,6 @@ namespace Stocks.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HomeMarkets", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Identifies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Identifies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,9 +74,6 @@ namespace Stocks.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Identifies");
-
             migrationBuilder.DropTable(
                 name: "Stocks");
 
