@@ -67,15 +67,20 @@ namespace Stocks.Libraries
 
             var companyCNPJ = new Company()
             {
-                Id = 1,
                 Name = "PETROBRAS",
-                DocumentNumber = "123456789"
+                DocumentNumber = "123456789",
+                Country = new Country()
+                {
+                    Name = "Brazil",
+                    Sigla = "BR"
+                }
             };
 
             var stock = new Stock()
             {
                 Company = companyCNPJ,
                 HomeMarket = homeMarket,
+                Type = "PN",
                 Ticker = "PETR4"
             };
 
@@ -83,8 +88,6 @@ namespace Stocks.Libraries
 
             using (var context = new StockContext())
             {
-                context.HomeMarkets.Add(homeMarket);
-                context.Companies.Add(companyCNPJ);
                 context.Stocks.Add(stock);
 
                 context.SaveChanges();

@@ -24,7 +24,12 @@ namespace Stocks.Controllers
                 {
                     Id = 1,
                     Name = "PETROBRAS",
-                    DocumentNumber = "123456789"
+                    DocumentNumber = "123456789",
+                    Country = new Country()
+                    {
+                        Name = "Brazil",
+                        Sigla = "BR"
+                    }
                 },
                 HomeMarket = new HomeMarket()
                 {
