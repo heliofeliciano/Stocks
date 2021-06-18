@@ -9,7 +9,7 @@ namespace Stocks.Models
     {
         public int Id { get; set; }
         public string Ticker { get; set; }
-        public string Type { get; set; }        // TODO will see another name for this variable ON, PN OR UNIT
+        public TypeStock Type { get; set; }
         public HomeMarket HomeMarket { get; set; }
         public int HomeMarketId { get; set; }
         public Company Company { get; set; }

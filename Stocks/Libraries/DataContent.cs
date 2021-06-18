@@ -80,7 +80,6 @@ namespace Stocks.Libraries
             {
                 Company = companyCNPJ,
                 HomeMarket = homeMarket,
-                Type = "PN",
                 Ticker = "PETR4"
             };
 
