@@ -91,8 +91,8 @@ namespace Stocks.Migrations
                     b.Property<string>("Ticker")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -100,7 +100,24 @@ namespace Stocks.Migrations
 
                     b.HasIndex("HomeMarketId");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("Stocks");
+                });
+
+            modelBuilder.Entity("Stocks.Models.TypeStock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeStock");
                 });
 
             modelBuilder.Entity("Stocks.Models.Company", b =>
@@ -126,9 +143,15 @@ namespace Stocks.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Stocks.Models.TypeStock", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
                     b.Navigation("Company");
 
                     b.Navigation("HomeMarket");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Stocks.Models.HomeMarket", b =>

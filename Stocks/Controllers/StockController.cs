@@ -57,15 +57,30 @@ namespace Stocks.Controllers
             return Json(result);
         }
 
-        [HttpGet("GetInfoStock/")]
-        public JsonResult GetInfoStock()
+        [HttpGet("GetAlphaVantage/")]
+        public JsonResult GetAlphaVantage()
         {
+            // APIKey F7CY0LUQ3YWQNP3K
+            AlphaVantageData alpha = new AlphaVantageData();
+            return Json(alpha.GetData());
+
+        }
+
+        /*
+         * GetInfoStock
+         * Responsável por buscar as informações em algum site
+         */
+        public void GetInfoAboutStock(Stock stock)
+        {
+            /*
+             * Check if a stock is a bdr, stockbr or stockusd
+             * 
+             */
             var tickerOfStock = "AAPL34";
-            var fonte = String.Empty;
 
             StatusInvestContextBDR statusInvestContextBDR = new StatusInvestContextBDR();
 
-            fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{statusInvestContextBDR.GetUrl()}/{tickerOfStock}");
+            var fonte = WebClientInstance.GetWebClientInstance().DownloadString($"{statusInvestContextBDR.GetUrl()}/{tickerOfStock}");
             var paridadeAcaoPrincial = statusInvestContextBDR.GetParityMainStock(fonte);
             var paridadeAcaoBDR = statusInvestContextBDR.GetParityStock(fonte);
             var stockCurrentValue = statusInvestContextBDR.GetCurrentValue(fonte);
@@ -81,9 +96,6 @@ namespace Stocks.Controllers
                 CompanyName = stockCompanyName,
                 Paridade = $"{paridadeAcaoPrincial} Stock = {paridadeAcaoBDR} BDR's"
             };
-
-            return Json(result);
-
         }
 
         //[HttpGet("GetInfoStocks/")]

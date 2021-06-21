@@ -40,5 +40,6 @@ namespace Stocks.Data
 
             return Int32.Parse(resultado[0].Groups[2].Value);
         }
+
     }
 }

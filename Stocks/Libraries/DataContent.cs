@@ -76,10 +76,17 @@ namespace Stocks.Libraries
                 }
             };
 
+            var typeStock = new TypeStock()
+            {
+                Id = 1,
+                Name = "Stock_BRL"
+            };
+
             var stock = new Stock()
             {
                 Company = companyCNPJ,
                 HomeMarket = homeMarket,
+                Type = typeStock,
                 Ticker = "PETR4"
             };
 
