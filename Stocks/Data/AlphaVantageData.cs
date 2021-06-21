@@ -1,4 +1,5 @@
-﻿using Stocks.Models.Alpha;
+﻿using Stocks.Models;
+using Stocks.Models.Alpha;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -10,29 +11,36 @@ namespace Stocks.Data
     {
         private string API_KEY = "F7CY0LUQ3YWQNP3K";
 
-        public AlphaSymbol GetData()
+        public EarningAlpha GetEarningData()
         {
             var symbolOfStock = "AAPL";
 
-            //Uri queryUri = new Uri($"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbolOfStock}&apikey={API_KEY}");
-
-            AlphaOverviewRequest alphaOverviewRequest = new AlphaOverviewRequest();
-            Uri queryUri = alphaOverviewRequest.GetUrl(symbolOfStock);
+            EarningAlpha earningAlpha = new EarningAlpha();
+            Uri earningUri = earningAlpha.GetUrl(symbolOfStock);
 
             using (WebClient webClient = new WebClient())
             {
-
-                string stringDownloadOfWebClient = webClient.DownloadString(queryUri);
-                //dynamic json_data = JsonSerializer.Deserialize<AlphaEarnings>(stringDownloadOfWebClient);
-                //dynamic json_data = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(stringDownloadOfWebClient);
-
-                //string json = "{ \"symbol\": \"AAPL\", " +
-                //    "\"annualEarnings\": [ { \"fiscalDateEnding\": \"2021-03-31\", \"reportedEPS\": \"3.08\" }], " +
-                //    "\"quartelyEarnings\": [ { \"fiscalDateEnding\": \"2021-03-31\", \"reportedEPS\": \"3.08\" }]}";
-                
-                dynamic jsonserializer = JsonSerializer.Deserialize<AlphaSymbol>(stringDownloadOfWebClient);
-                AlphaSymbol retorno = (AlphaSymbol)Convert.ChangeType(jsonserializer, typeof(AlphaSymbol));
+                string stringDownloadOfWebClient = webClient.DownloadString(earningUri);
                                 
+                dynamic jsonserializer = JsonSerializer.Deserialize<EarningAlpha>(stringDownloadOfWebClient);
+                EarningAlpha retorno = (EarningAlpha)Convert.ChangeType(jsonserializer, typeof(EarningAlpha));
+                                
+                return retorno;
+            }
+        }
+
+        public CashFlowAlpha GetCashFlowOfStock(Stock stock)
+        {
+            CashFlowAlpha cashFlowAlpha = new CashFlowAlpha();
+            Uri cashFlowUri = cashFlowAlpha.GetUrl(stock.Ticker);
+
+            using (WebClient webClient = new WebClient())
+            {
+                string stringDownloadOfWebClient = webClient.DownloadString(cashFlowUri);
+
+                dynamic jsonserializer = JsonSerializer.Deserialize<CashFlowAlpha>(stringDownloadOfWebClient);
+                CashFlowAlpha retorno = (CashFlowAlpha)Convert.ChangeType(jsonserializer, typeof(CashFlowAlpha));
+
                 return retorno;
             }
         }

@@ -57,12 +57,25 @@ namespace Stocks.Controllers
             return Json(result);
         }
 
-        [HttpGet("GetAlphaVantage/")]
-        public JsonResult GetAlphaVantage()
+        [HttpGet("GetAlphaVantageEarnings/")]
+        public JsonResult GetAlphaVantageEarnings()
         {
             // APIKey F7CY0LUQ3YWQNP3K
             AlphaVantageData alpha = new AlphaVantageData();
-            return Json(alpha.GetData());
+            return Json(alpha.GetEarningData());
+
+        }
+
+        [HttpGet("GetAlphaVantageCashFlow/")]
+        public JsonResult GetAlphaVantageCashFlow()
+        {
+            // APIKey F7CY0LUQ3YWQNP3K
+            // 66.064.000.000
+            AlphaVantageData alpha = new AlphaVantageData();
+            return Json(alpha.GetCashFlowOfStock(new Stock()
+            {
+                Ticker = "AAPL"
+            }));
 
         }
 
