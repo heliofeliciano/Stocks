@@ -19,15 +19,14 @@ namespace Stocks.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Stocks.Models.Company", b =>
+            modelBuilder.Entity("Stocks.Models.CompanyEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CountryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DocumentNumber")
                         .HasColumnType("nvarchar(max)");
@@ -42,12 +41,11 @@ namespace Stocks.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Country", b =>
+            modelBuilder.Entity("Stocks.Models.CountryEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -60,12 +58,11 @@ namespace Stocks.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("Stocks.Models.HomeMarket", b =>
+            modelBuilder.Entity("Stocks.Models.HomeMarketEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -75,30 +72,35 @@ namespace Stocks.Migrations
                     b.ToTable("HomeMarkets");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Stock", b =>
+            modelBuilder.Entity("Stocks.Models.StockEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CompanyId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("HomeMarketId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("HomeMarketId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Ticker")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyId1");
 
-                    b.HasIndex("HomeMarketId");
+                    b.HasIndex("HomeMarketId1");
 
                     b.HasIndex("TypeId");
 
@@ -107,10 +109,9 @@ namespace Stocks.Migrations
 
             modelBuilder.Entity("Stocks.Models.TypeStock", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -120,28 +121,24 @@ namespace Stocks.Migrations
                     b.ToTable("TypeStock");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Company", b =>
+            modelBuilder.Entity("Stocks.Models.CompanyEntity", b =>
                 {
-                    b.HasOne("Stocks.Models.Country", "Country")
+                    b.HasOne("Stocks.Models.CountryEntity", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Stocks.Models.Stock", b =>
+            modelBuilder.Entity("Stocks.Models.StockEntity", b =>
                 {
-                    b.HasOne("Stocks.Models.Company", "Company")
+                    b.HasOne("Stocks.Models.CompanyEntity", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId1");
 
-                    b.HasOne("Stocks.Models.HomeMarket", "HomeMarket")
+                    b.HasOne("Stocks.Models.HomeMarketEntity", "HomeMarket")
                         .WithMany("Stocks")
-                        .HasForeignKey("HomeMarketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HomeMarketId1");
 
                     b.HasOne("Stocks.Models.TypeStock", "Type")
                         .WithMany()
@@ -154,7 +151,7 @@ namespace Stocks.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Stocks.Models.HomeMarket", b =>
+            modelBuilder.Entity("Stocks.Models.HomeMarketEntity", b =>
                 {
                     b.Navigation("Stocks");
                 });

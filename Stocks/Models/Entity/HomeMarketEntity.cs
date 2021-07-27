@@ -2,10 +2,9 @@
 
 namespace Stocks.Models
 {
-    public class HomeMarket
+    public class HomeMarketEntity : Entity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public List<Stock> Stocks { get; set; }
+        public List<StockEntity> Stocks { get; set; }
     }
 }

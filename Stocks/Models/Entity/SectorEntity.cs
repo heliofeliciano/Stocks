@@ -1,8 +1,7 @@
 ﻿namespace Stocks.Models
 {
-    public class Sector
+    public class SectorEntity : Entity
     {
-        public int Id { get; set; }
         public int Name { get; set; }
     }
 }

@@ -7,48 +7,40 @@ namespace Stocks.Libraries
 {
     public class DataContent
     {
-        public List<Stock> GetStocks()
+        public List<StockEntity> GetStocks()
         {
-            var list = new List<Stock>();
-            list.Add(new Stock()
+            var list = new List<StockEntity>();
+            list.Add(new StockEntity()
             {
-                Id = 1,
-                Company = new Company()
+                Company = new CompanyEntity()
                 {
-                    Id = 1,
                     Name = "PETROBRAS",
                     DocumentNumber = "123456789"
                 },
                 Ticker = "PETR4"
             });
-            list.Add(new Stock()
+            list.Add(new StockEntity()
             {
-                Id = 2,
-                Company = new Company()
+                Company = new CompanyEntity()
                 {
-                    Id = 1,
                     Name = "GUARARAPES",
                     DocumentNumber = "123456789"
                 },
                 Ticker = "GUAR3"
             });
-            list.Add(new Stock()
+            list.Add(new StockEntity()
             {
-                Id = 2,
-                Company = new Company()
+                Company = new CompanyEntity()
                 {
-                    Id = 1,
                     Name = "VALE",
                     DocumentNumber = "123456789"
                 },
                 Ticker = "VALE3"
             });
-            list.Add(new Stock()
+            list.Add(new StockEntity()
             {
-                Id = 2,
-                Company = new Company()
+                Company = new CompanyEntity()
                 {
-                    Id = 1,
                     Name = "JD.COM",
                     DocumentNumber = "123456789"
                 },
@@ -60,16 +52,16 @@ namespace Stocks.Libraries
 
         public void InsertingData()
         {
-            var homeMarket = new HomeMarket()
+            var homeMarket = new HomeMarketEntity()
             {
                 Name = "B3"
             };
 
-            var companyCNPJ = new Company()
+            var companyCNPJ = new CompanyEntity()
             {
                 Name = "PETROBRAS",
                 DocumentNumber = "123456789",
-                Country = new Country()
+                Country = new CountryEntity()
                 {
                     Name = "Brazil",
                     Sigla = "BR"
@@ -78,11 +70,10 @@ namespace Stocks.Libraries
 
             var typeStock = new TypeStock()
             {
-                Id = 1,
                 Name = "Stock_BRL"
             };
 
-            var stock = new Stock()
+            var stock = new StockEntity()
             {
                 Company = companyCNPJ,
                 HomeMarket = homeMarket,

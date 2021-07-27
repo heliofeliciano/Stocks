@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Stocks.Migrations
 {
@@ -10,8 +11,7 @@ namespace Stocks.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sigla = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -24,8 +24,7 @@ namespace Stocks.Migrations
                 name: "HomeMarkets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -37,8 +36,7 @@ namespace Stocks.Migrations
                 name: "TypeStock",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -50,11 +48,10 @@ namespace Stocks.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DocumentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: true)
+                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,28 +68,29 @@ namespace Stocks.Migrations
                 name: "Stocks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ticker = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    HomeMarketId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     HomeMarketId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stocks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Stocks_Companies_CompanyId",
-                        column: x => x.CompanyId,
+                        name: "FK_Stocks_Companies_CompanyId1",
+                        column: x => x.CompanyId1,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Stocks_HomeMarkets_HomeMarketId",
-                        column: x => x.HomeMarketId,
+                        name: "FK_Stocks_HomeMarkets_HomeMarketId1",
+                        column: x => x.HomeMarketId1,
                         principalTable: "HomeMarkets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Stocks_TypeStock_TypeId",
                         column: x => x.TypeId,
@@ -107,14 +105,14 @@ namespace Stocks.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stocks_CompanyId",
+                name: "IX_Stocks_CompanyId1",
                 table: "Stocks",
-                column: "CompanyId");
+                column: "CompanyId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stocks_HomeMarketId",
+                name: "IX_Stocks_HomeMarketId1",
                 table: "Stocks",
-                column: "HomeMarketId");
+                column: "HomeMarketId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stocks_TypeId",

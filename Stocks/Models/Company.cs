@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Stocks.Models
 {
     public class Company
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string DocumentNumber { get; set; }
-        public Country Country { get; set; }
-        public string toValidDocumentNumber()
-        {
-            return string.Empty;
-        }
+        public Guid Id { get; set; }
+        public string CompanyName { get; set; }
+        public string Nickname { get; set; }
     }
 }
