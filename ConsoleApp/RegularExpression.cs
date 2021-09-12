@@ -13,6 +13,15 @@ namespace ConsoleApp
         {
             regexInstance = new Regex(pattern);
             return regexInstance.Matches(content);
+        } 
+        
+        public static String GetResult(string content, string pattern)
+        {
+            regexInstance = new Regex(pattern);
+            var matches = regexInstance.Matches(content);
+            return matches[0].Groups[1].Value;
         }
+
+        public static string GetOnlyNumbers(string content) => Regex.Replace(content, "[^0-9]", "");
     }
 }

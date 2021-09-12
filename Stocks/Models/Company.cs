@@ -10,5 +10,6 @@ namespace Stocks.Models
         public Guid Id { get; set; }
         public string CompanyName { get; set; }
         public string Nickname { get; set; }
+        public string CNPJ { get; set; }
     }
 }

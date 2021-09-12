@@ -83,12 +83,12 @@ namespace Stocks.Libraries
 
             
 
-            using (var context = new StockContext())
-            {
-                context.Stocks.Add(stock);
+            //using (var context = new DataContext())
+            //{
+            //    context.Stocks.Add(stock);
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
 
         }
 
