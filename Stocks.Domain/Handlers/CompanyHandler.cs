@@ -1,39 +1,47 @@
-﻿using Stocks.Domain.Commands;
+﻿using Flunt.Notifications;
+using Stocks.Domain.Commands.Company;
 using Stocks.Domain.Entities;
 using Stocks.Domain.Enums;
 using Stocks.Domain.Repositories;
+using Stocks.Domain.Shared;
 using Stocks.Domain.ValueObjects;
 using Stocks.Shared.Commands;
 using Stocks.Shared.Handlers;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Stocks.Domain.Handlers
 {
-    //public class CompanyHandler : IHandler<CreateCompanyCommand>
-    //{
-    //    public readonly ICompanyRepository _companyRepository;
-    //    public CompanyHandler(ICompanyRepository companyRepository)
-    //    {
-    //        _companyRepository = companyRepository;
-    //    }
+    public class CompanyHandler : 
+        Notifiable,
+        IHandler<CreateCompanyCommand>
+    {
+        private readonly ICompanyRepository _repository;
 
-    //    public ICommandResult Handle(CreateCompanyCommand command)
-    //    {
-    //        // Check if document is registered
-    //        if (_companyRepository.CheckExists(command.DocumentNumber))
-    //        {
-    //            return new CommandResult(false, "Document already registered.");
-    //        }
+        public CompanyHandler(ICompanyRepository repository)
+        {
+            _repository = repository;
+        }
 
-    //        // Generate VOs
-    //        var document = new Document(command.DocumentNumber, EDocumentType.CNPJ);
+        public ICommandResult Handle(CreateCompanyCommand command)
+        {
+            throw new NotImplementedException();
 
-    //        // Generate Entities
-    //        var company = new Company(command.Name, document);
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Opss, ocorred errors", command.Notifications);
 
-    //        // Save information
-    //        _companyRepository.CreateCompany(company);
+            // create a company
+            var company = new Company(command.Name, new Document(command.DocumentNumber, EDocumentType.CNPJ));
 
-    //        return new CommandResult(true, "Company registered successfully.");
-    //    }
-    //}
+            // Save company in database
+            _repository.Create(company);
+
+            // Notifier user
+            return new GenericCommandResult(true, "Company saved successfully!", company);
+        }
+
+    }
 }

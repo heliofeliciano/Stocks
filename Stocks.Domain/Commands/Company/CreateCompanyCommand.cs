@@ -1,7 +1,8 @@
 ﻿using Flunt.Notifications;
+using Flunt.Validations;
 using Stocks.Shared.Commands;
 
-namespace Stocks.Domain.Commands
+namespace Stocks.Domain.Commands.Company
 {
     public class CreateCompanyCommand : Notifiable, ICommand
     {
@@ -20,8 +21,10 @@ namespace Stocks.Domain.Commands
 
         public void Validate()
         {
-            if (Name.Length < 4) 
-                
+            AddNotifications(new Contract()
+                .Requires()
+                .HasMinLen(Name, 3, "Company.Name", "Nome deve ter mais de 3 digitos")
+            );
         }
     }
 }
