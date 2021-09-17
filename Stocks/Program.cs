@@ -22,5 +22,9 @@ namespace Stocks
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
+
+
     }
 }
