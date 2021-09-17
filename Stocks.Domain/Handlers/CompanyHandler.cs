@@ -26,8 +26,6 @@ namespace Stocks.Domain.Handlers
 
         public ICommandResult Handle(CreateCompanyCommand command)
         {
-            throw new NotImplementedException();
-
             // Fail Fast Validation
             command.Validate();
             if (command.Invalid)

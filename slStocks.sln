@@ -9,15 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{86FB9D5E-C819-4147-9C86-6A9533F74A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Domain", "Stocks.Domain\Stocks.Domain.csproj", "{E408346D-7667-44BF-94DB-1B5A6E963677}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Domain", "Stocks.Domain\Stocks.Domain.csproj", "{E408346D-7667-44BF-94DB-1B5A6E963677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Domain.Shared", "Stocks.Shared\Stocks.Domain.Shared.csproj", "{6E6B1B7B-5F43-4388-B993-1E96D8F15C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Domain.Shared", "Stocks.Shared\Stocks.Domain.Shared.csproj", "{6E6B1B7B-5F43-4388-B993-1E96D8F15C26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Domain.Infra", "Stocks.Domain.Infra\Stocks.Domain.Infra.csproj", "{817DBEB1-104F-47E2-9C5A-CB3AEB3E1C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Domain.Infra", "Stocks.Domain.Infra\Stocks.Domain.Infra.csproj", "{817DBEB1-104F-47E2-9C5A-CB3AEB3E1C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Domain.Tests", "Stocks.Domain.Tests\Stocks.Domain.Tests.csproj", "{0E2C5696-B007-4714-BFAB-52ACA1CA68B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Domain.Tests", "Stocks.Domain.Tests\Stocks.Domain.Tests.csproj", "{0E2C5696-B007-4714-BFAB-52ACA1CA68B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stocks.Domain.Api", "Stocks.Domain.Api\Stocks.Domain.Api.csproj", "{7CBA3B8E-8B17-4475-8518-9D2D2F393B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stocks.Domain.Api", "Stocks.Domain.Api\Stocks.Domain.Api.csproj", "{7CBA3B8E-8B17-4475-8518-9D2D2F393B2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
