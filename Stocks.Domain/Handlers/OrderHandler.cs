@@ -37,4 +37,5 @@ namespace Stocks.Domain.Handlers
     //        return new CommandResult(true, "Order created successfully");
     //    }
     //}
+
 }
