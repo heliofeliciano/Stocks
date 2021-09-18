@@ -26,7 +26,7 @@ namespace Stocks.Domain.Handlers
             // Fail Fast Validation
             command.Validate();
             if (command.Invalid)
-                return new GenericCommandResult(false, "Opss, ocorred errors", command.Notifications);
+                return new GenericCommandResult(false, "Opss, errors ocurred", command.Notifications);
 
             // create a company
             var company = new Company(command.Name, new Document(command.DocumentNumber, EDocumentType.CNPJ));

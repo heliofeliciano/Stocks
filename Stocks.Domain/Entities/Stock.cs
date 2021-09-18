@@ -2,7 +2,7 @@
 
 namespace Stocks.Domain.Entities
 {
-    public abstract class Stock : Entity
+    public class Stock : Entity
     {
         public Stock(Company company, string ticker, StockMarket stockMarket)
         {
