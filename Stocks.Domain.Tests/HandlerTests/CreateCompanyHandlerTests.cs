@@ -28,4 +28,5 @@ namespace Stocks.Domain.Tests.HandlerTests
             Assert.AreEqual(_result.Success, true);
         }
     }
+
 }
