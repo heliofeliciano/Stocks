@@ -7,9 +7,6 @@ using Stocks.Domain.Shared;
 using Stocks.Domain.ValueObjects;
 using Stocks.Shared.Commands;
 using Stocks.Shared.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Stocks.Domain.Handlers
 {

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Stocks.Domain\Stocks.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
 </Project>
