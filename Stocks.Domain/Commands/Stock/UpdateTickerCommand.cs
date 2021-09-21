@@ -1,22 +1,25 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
 using Stocks.Shared.Commands;
+using System;
 
-namespace Stocks.Domain.Commands
+namespace Stocks.Domain.Commands.Stock
 {
-    public class CreateStockCommand : Notifiable, ICommand
+    public class UpdateTickerCommand : Notifiable, ICommand
     {
-        public CreateStockCommand()
+        public UpdateTickerCommand()
         {
         }
-        public CreateStockCommand(string companyName, string companyDocument, string ticker, string stockMarket)
+        public UpdateTickerCommand(Guid id, string companyName, string companyDocument, string ticker, string stockMarket)
         {
+            Id = id;
             CompanyName = companyName;
             CompanyDocument = companyDocument;
             Ticker = ticker;
             StockMarket = stockMarket;
         }
 
+        public Guid Id { get; set; }
         public string CompanyName { get; set; }
         public string CompanyDocument { get; set; }
         public string Ticker { get; set; }

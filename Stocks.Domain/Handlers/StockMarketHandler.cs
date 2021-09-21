@@ -1,5 +1,5 @@
 ﻿using Flunt.Notifications;
-using Stocks.Domain.Commands;
+using Stocks.Domain.Commands.StockMarket;
 using Stocks.Domain.Entities;
 using Stocks.Domain.Repositories;
 using Stocks.Domain.Shared;

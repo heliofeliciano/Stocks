@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stocks.Domain.Commands;
+using Stocks.Domain.Commands.Stock;
 using Stocks.Domain.Handlers;
 using Stocks.Domain.Shared;
 using Stocks.Domain.Tests.Repositories;

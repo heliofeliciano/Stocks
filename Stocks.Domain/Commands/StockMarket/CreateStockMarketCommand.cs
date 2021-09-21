@@ -2,7 +2,7 @@
 using Flunt.Validations;
 using Stocks.Shared.Commands;
 
-namespace Stocks.Domain.Commands
+namespace Stocks.Domain.Commands.StockMarket
 {
     public class CreateStockMarketCommand : Notifiable, ICommand
     {

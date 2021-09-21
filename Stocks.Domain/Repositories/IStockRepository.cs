@@ -1,4 +1,5 @@
 ﻿using Stocks.Domain.Entities;
+using System;
 
 namespace Stocks.Domain.Repositories
 {
@@ -6,5 +7,6 @@ namespace Stocks.Domain.Repositories
     {
         public void Create(Stock stock);
         public void Update(Stock stock);
+        public Stock GetById(Guid id);
     }
 }

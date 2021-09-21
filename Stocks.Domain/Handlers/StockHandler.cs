@@ -1,5 +1,5 @@
 ﻿using Flunt.Notifications;
-using Stocks.Domain.Commands;
+using Stocks.Domain.Commands.Stock;
 using Stocks.Domain.Entities;
 using Stocks.Domain.Enums;
 using Stocks.Domain.Repositories;
@@ -12,7 +12,10 @@ namespace Stocks.Domain.Handlers
 {
     public class StockHandler :
         Notifiable,
-        IHandler<CreateStockCommand>
+        IHandler<CreateStockCommand>,
+        IHandler<UpdateTickerCommand>,
+        IHandler<ActivateStockCommand>,
+        IHandler<InactivateStockCommand>
     {
         private readonly IStockRepository _stockRepository;
 
@@ -38,6 +41,62 @@ namespace Stocks.Domain.Handlers
 
             // Return message to user
             return new GenericCommandResult(true, "Saved sucessfully", stock);
+        }
+
+        public ICommandResult Handle(UpdateTickerCommand command)
+        {
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Don't updated Stock", command.Notifications);
+
+            // Recovered a StockId
+            var stock = _stockRepository.GetById(command.Id);
+
+            // Update ticker
+            stock.UpdateTicker(command.Ticker);
+
+            // Save database
+            _stockRepository.Update(stock);
+
+            // Return result
+            return new GenericCommandResult(true, "Stock updated sucessfully", stock);
+        }
+
+        public ICommandResult Handle(ActivateStockCommand command)
+        {
+            // Fail fast validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Error", command.Notifications);
+
+            // Recovered a StockId
+            var stock = _stockRepository.GetById(command.Id);
+
+            // Activate stock
+            stock.ActivateStock();
+
+            // save in database
+            _stockRepository.Update(stock);
+
+            // return result
+            return new GenericCommandResult(true, "Stock updated sucessfully", stock);
+
+        }
+
+        public ICommandResult Handle(InactivateStockCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Error", command.Notifications);
+
+            var stock = _stockRepository.GetById(command.Id);
+
+            stock.InactivateStock();
+
+            _stockRepository.Update(stock);
+
+            return new GenericCommandResult(true, "Stock updated sucessfully", stock);
         }
     }
 }

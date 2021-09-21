@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stocks.Domain.Commands;
-using Stocks.Domain.Enums;
+using Stocks.Domain.Commands.StockMarket;
 
 namespace Stocks.Domain.Tests.CommandTests
 {
