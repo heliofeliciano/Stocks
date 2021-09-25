@@ -1,8 +1,8 @@
 ﻿using Stocks.Domain.Entities;
+using Stocks.Domain.Enums;
 using Stocks.Domain.Repositories;
+using Stocks.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Stocks.Domain.Tests.Repositories
 {
@@ -10,6 +10,11 @@ namespace Stocks.Domain.Tests.Repositories
     {
         public void Create(Company company)
         {
+        }
+
+        public Company GetById(Guid id)
+        {
+            return new Company("APPLE", new Document("1234", EDocumentType.CNPJ));
         }
 
         public void Update(Company company)

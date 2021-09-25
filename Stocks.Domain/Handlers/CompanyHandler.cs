@@ -12,7 +12,9 @@ namespace Stocks.Domain.Handlers
 {
     public class CompanyHandler : 
         Notifiable,
-        IHandler<CreateCompanyCommand>
+        IHandler<CreateCompanyCommand>,
+        IHandler<TurnActiveCompanyCommand>,
+        IHandler<TurnInactiveCompanyCommand>
     {
         private readonly ICompanyRepository _repository;
 
@@ -38,5 +40,34 @@ namespace Stocks.Domain.Handlers
             return new GenericCommandResult(true, "Company saved successfully!", company);
         }
 
+        public ICommandResult Handle(TurnActiveCompanyCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Error", command.Notifications);
+
+            var company = _repository.GetById(command.Id);
+
+            company.TurnActive();
+
+            _repository.Update(company);
+
+            return new GenericCommandResult(true, "Company updated successfully", company);
+        }
+
+        public ICommandResult Handle(TurnInactiveCompanyCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Error", command.Notifications);
+
+            var company = _repository.GetById(command.Id);
+
+            company.TurnInactive();
+
+            _repository.Update(company);
+
+            return new GenericCommandResult(true, "Company updated successfully", company);
+        }
     }
 }

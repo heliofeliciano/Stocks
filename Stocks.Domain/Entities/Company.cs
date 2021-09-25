@@ -9,9 +9,21 @@ namespace Stocks.Domain.Entities
         {
             Name = name;
             Document = document;
+            Active = true;
         }
 
         public string Name { get; private set; }
         public Document Document { get; private set; }
+        public bool Active { get; private set; }
+
+        public void TurnActive()
+        {
+            Active = true;
+        }
+        
+        public void TurnInactive()
+        {
+            Active = false;
+        }
     }
 }
