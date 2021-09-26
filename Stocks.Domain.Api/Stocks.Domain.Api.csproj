@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Stocks.Domain\Stocks.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

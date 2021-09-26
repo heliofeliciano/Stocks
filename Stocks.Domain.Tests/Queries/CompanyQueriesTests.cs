@@ -37,6 +37,13 @@ namespace Stocks.Domain.Tests.Queries
         {
             var result = _items.AsQueryable().Where(CompanyQueries.GetAllActive());
             Assert.AreEqual(2, result.Count());
+        } 
+        
+        [TestMethod]
+        public void Dado_a_consulta_deve_retornar_companies_apenas_inativas()
+        {
+            var result = _items.AsQueryable().Where(CompanyQueries.GetAllInactive());
+            Assert.AreEqual(3, result.Count());
         }
     }
 }
