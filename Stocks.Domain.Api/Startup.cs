@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Stocks.Domain.Handlers;
+using Stocks.Domain.Infra.Contexts;
+using Stocks.Domain.Repositories;
 
 namespace Stocks.Domain.Api
 {
@@ -20,6 +24,15 @@ namespace Stocks.Domain.Api
         {
 
             services.AddControllers();
+            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<IStockRepository, StockRepository>();
+            services.AddTransient<IStockMarketRepository, StockMarketRepository>();
+            services.AddTransient<CompanyHandler, CompanyHandler>();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stocks.Domain.Api", Version = "v1" });
