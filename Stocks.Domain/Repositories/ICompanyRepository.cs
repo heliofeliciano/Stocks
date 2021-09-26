@@ -10,7 +10,6 @@ namespace Stocks.Domain.Repositories
         void Create(Company company);
         void Update(Company company);
         Company GetById(Guid id);
-
         IEnumerable<Company> GetAll();
         IEnumerable<Company> GetAllActive();
         IEnumerable<Company> GetAllInactive();

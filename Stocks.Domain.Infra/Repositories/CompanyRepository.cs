@@ -1,4 +1,6 @@
-﻿using Stocks.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Stocks.Domain.Entities;
+using Stocks.Domain.Infra.Contexts;
 using Stocks.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,9 +10,17 @@ namespace Stocks.Domain.Infra.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
+        private readonly DataContext _context;
+
+        public CompanyRepository(DataContext context)
+        {
+            _context = context;
+        }
+
         public void Create(Company company)
         {
-            throw new NotImplementedException();
+            _context.Companies.Add(company);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Company> GetAll()
@@ -35,7 +45,8 @@ namespace Stocks.Domain.Infra.Repositories
 
         public void Update(Company company)
         {
-            throw new NotImplementedException();
+            _context.Entry(company).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }
