@@ -5,6 +5,11 @@ namespace Stocks.Domain.ValueObjects
 {
     public class Document : ValueObject
     {
+        public Document(string number)
+        {
+            Number = number;
+        }
+
         public Document(string number, EDocumentType documentType)
         {
             Number = number;

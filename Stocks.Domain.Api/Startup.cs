@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Stocks.Domain.Handlers;
 using Stocks.Domain.Infra.Contexts;
+using Stocks.Domain.Infra.Repositories;
 using Stocks.Domain.Repositories;
 
 namespace Stocks.Domain.Api
@@ -28,8 +29,8 @@ namespace Stocks.Domain.Api
             //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
             services.AddTransient<ICompanyRepository, CompanyRepository>();
-            services.AddTransient<IStockRepository, StockRepository>();
-            services.AddTransient<IStockMarketRepository, StockMarketRepository>();
+            //services.AddTransient<IStockRepository, StockRepository>();
+            //services.AddTransient<IStockMarketRepository, StockMarketRepository>();
             services.AddTransient<CompanyHandler, CompanyHandler>();
 
 
@@ -51,7 +52,11 @@ namespace Stocks.Domain.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

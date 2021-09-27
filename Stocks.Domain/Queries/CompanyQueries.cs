@@ -6,14 +6,6 @@ namespace Stocks.Domain.Queries
 {
     public static class CompanyQueries
     {
-        /*
-         * O que é um delegate?
-         * Delegate é a possibilidade de passar uma função como parametro de um método 
-         * Delegate é a assinatura de um método
-         *  
-         * 
-         * 
-         */
         public static Expression<Func<Company, bool>> GetAll()
         {
             return x => x.Id != null;
@@ -27,6 +19,11 @@ namespace Stocks.Domain.Queries
         public static Expression<Func<Company, bool>> GetAllInactive()
         {
             return x => x.Id != null && x.Active == false;
+        }
+
+        public static Expression<Func<Company, bool>> GetById(Guid id)
+        { 
+            return x => x.Id == id;
         }
         
     }

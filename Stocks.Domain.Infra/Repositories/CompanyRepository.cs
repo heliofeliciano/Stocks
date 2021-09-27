@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stocks.Domain.Entities;
 using Stocks.Domain.Infra.Contexts;
+using Stocks.Domain.Queries;
 using Stocks.Domain.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Stocks.Domain.Infra.Repositories
 {
@@ -25,22 +26,35 @@ namespace Stocks.Domain.Infra.Repositories
 
         public IEnumerable<Company> GetAll()
         {
-            throw new NotImplementedException();
+            return _context
+                .Companies
+                .AsNoTracking()
+                .OrderBy(x => x.Name);
         }
 
         public IEnumerable<Company> GetAllActive()
         {
-            throw new NotImplementedException();
+            return _context
+                .Companies
+                .AsNoTracking()
+                .Where(CompanyQueries.GetAllActive())
+                .OrderBy(x => x.Name);
         }
 
         public IEnumerable<Company> GetAllInactive()
         {
-            throw new NotImplementedException();
+            return _context
+                .Companies
+                .AsNoTracking()
+                .Where(CompanyQueries.GetAllInactive())
+                .OrderBy(x => x.Name);
         }
 
         public Company GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context
+                .Companies
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public void Update(Company company)

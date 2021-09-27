@@ -1,7 +1,6 @@
 ﻿using Stocks.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace Stocks.Domain.Repositories
 {

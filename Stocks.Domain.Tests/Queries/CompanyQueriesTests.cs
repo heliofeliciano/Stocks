@@ -3,6 +3,7 @@ using Stocks.Domain.Entities;
 using Stocks.Domain.Enums;
 using Stocks.Domain.Queries;
 using Stocks.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,6 +45,16 @@ namespace Stocks.Domain.Tests.Queries
         {
             var result = _items.AsQueryable().Where(CompanyQueries.GetAllInactive());
             Assert.AreEqual(3, result.Count());
+        }
+
+        [TestMethod]
+        public void Dado_um_novo_guid_lista_deve_conter_zero_elementos()
+        {
+            var id = Guid.NewGuid();
+
+            var result = _items.AsQueryable().Where(CompanyQueries.GetById(id));
+
+            Assert.AreEqual(0, result.Count());
         }
     }
 }
