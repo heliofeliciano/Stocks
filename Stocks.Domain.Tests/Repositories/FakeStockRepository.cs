@@ -3,6 +3,7 @@ using Stocks.Domain.Enums;
 using Stocks.Domain.Repositories;
 using Stocks.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace Stocks.Domain.Tests.Repositories
 {
@@ -10,6 +11,21 @@ namespace Stocks.Domain.Tests.Repositories
     {
         public void Create(Stock stock)
         {
+        }
+
+        public IEnumerable<Stock> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Stock> GetAllActive()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Stock> GetAllInactive()
+        {
+            throw new NotImplementedException();
         }
 
         public Stock GetById(Guid id)

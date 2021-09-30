@@ -10,10 +10,32 @@ namespace Stocks.Domain.Tests.Repositories
     {
         public void Create(StockMarket stockMarket)
         {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StockMarket> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StockMarket> GetAllActive()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StockMarket> GetAllInactive()
+        {
+            throw new NotImplementedException();
+        }
+
+        public StockMarket GetById(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(StockMarket stockMarket)
         {
+            throw new NotImplementedException();
         }
     }
 }

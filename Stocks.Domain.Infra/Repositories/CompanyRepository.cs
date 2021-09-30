@@ -54,7 +54,7 @@ namespace Stocks.Domain.Infra.Repositories
         {
             return _context
                 .Companies
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(CompanyQueries.GetById(id));
         }
 
         public void Update(Company company)

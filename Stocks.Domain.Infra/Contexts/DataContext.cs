@@ -12,6 +12,8 @@ namespace Stocks.Domain.Infra.Contexts
         }
 
         public DbSet<Company> Companies { get; set; }
+        public DbSet<StockMarket> StockMarkets { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,20 +23,19 @@ namespace Stocks.Domain.Infra.Contexts
             modelBuilder.Entity<Company>().Property(x => x.Id);
             modelBuilder.Entity<Company>().Property(x => x.Name).HasMaxLength(200);
             modelBuilder.Entity<Company>().Property(x => x.Document)
-                .HasConversion(a => a.Number,
-                               s => new Document(s))
+                .HasConversion(a => a.Number, s => new Document(s))
                 .HasColumnType("varchar(14)");
-            
+
             modelBuilder.Entity<StockMarket>().ToTable("StockMarket");
             modelBuilder.Entity<StockMarket>().Property(x => x.Id);
-            modelBuilder.Entity<StockMarket>().Property(x => x.Name);
-            
+            modelBuilder.Entity<StockMarket>().Property(x => x.Name).HasColumnType("varchar(100)");
+
             modelBuilder.Entity<Stock>().ToTable("Stock");
             modelBuilder.Entity<Stock>().Property(x => x.Id);
             modelBuilder.Entity<Stock>().Property(x => x.Ticker);
             modelBuilder.Entity<Stock>().Property(x => x.Active).HasColumnType("bit");
-            modelBuilder.Entity<Stock>().HasOne(x => x.Company);
-            modelBuilder.Entity<Stock>().HasOne(x => x.StockMarket);
+            modelBuilder.Entity<Stock>().HasOne<Company>(c => c.Company);
+            modelBuilder.Entity<Stock>().HasOne<StockMarket>(s => s.StockMarket);
         }
     }
 }

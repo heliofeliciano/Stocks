@@ -23,16 +23,17 @@ namespace Stocks.Domain.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
             services.AddTransient<ICompanyRepository, CompanyRepository>();
-            //services.AddTransient<IStockRepository, StockRepository>();
-            //services.AddTransient<IStockMarketRepository, StockMarketRepository>();
-            services.AddTransient<CompanyHandler, CompanyHandler>();
+            services.AddTransient<IStockRepository, StockRepository>();
+            services.AddTransient<IStockMarketRepository, StockMarketRepository>();
 
+            services.AddTransient<CompanyHandler, CompanyHandler>();
+            services.AddTransient<StockMarketHandler, StockMarketHandler>();
+            services.AddTransient<StockHandler, StockHandler>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Stocks.Domain.Commands.Company;
+using Stocks.Domain.Commands.Stock;
 using Stocks.Domain.Entities;
 using Stocks.Domain.Handlers;
 using Stocks.Domain.Repositories;
@@ -9,30 +9,25 @@ using System.Collections.Generic;
 namespace Stocks.Domain.Api.Controllers
 {
     [ApiController]
-    [Route("v1/companies")]
-    public class CompanyController : ControllerBase
+    [Route("v1/stocks")]
+    public class StockController : ControllerBase
     {
         [Route("")]
         [HttpGet]
-        public IEnumerable<Company> GetAll(
-            [FromServices] ICompanyRepository repository
+        public IEnumerable<Stock> GetAll(
+            [FromServices] IStockRepository repository
             )
         {
             return repository.GetAll();
         }
-
+        
         [Route("")]
         [HttpPost]
         public GenericCommandResult Create(
-            [FromBody] CreateCompanyCommand command,
-            [FromServices] CompanyHandler handler
+            [FromBody] CreateStockCommand command,
+            [FromServices] StockHandler handler
             )
         {
-            // Command
-            // Handler
-            //command.Name = "APPLE";
-            //command.DocumentNumber = "12345";
-
             return (GenericCommandResult) handler.Handle(command);
         }
     }
