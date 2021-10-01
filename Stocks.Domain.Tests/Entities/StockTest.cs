@@ -8,7 +8,7 @@ namespace Stocks.Domain.Tests.Entities
     [TestClass]
     public class StockTest
     {
-        private readonly Stock _validStock = new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)), "CT", new StockMarket("B3"));
+        private readonly Stock _validStock = new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)).Id, "CT", new StockMarket("B3").Id);
 
         [TestMethod]
         public void Dado_um_novo_stock_o_campo_active_deve_ser_verdadeiro()

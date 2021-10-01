@@ -17,11 +17,11 @@ namespace Stocks.Domain.Tests.Queries
         public StockQueriesTests()
         {
             _items = new List<Stock>();
-            var stock01 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)),"AAPL", new StockMarket("NASDAQ"));
-            var stock02 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)),"AAPL", new StockMarket("NASDAQ"));
-            var stock03 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)),"AAPL", new StockMarket("NASDAQ"));
-            var stock04 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)),"AAPL", new StockMarket("NASDAQ"));
-            var stock05 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)), "AAPL", new StockMarket("NASDAQ"));
+            var stock01 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)).Id,"AAPL", new StockMarket("NASDAQ").Id);
+            var stock02 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)).Id,"AAPL", new StockMarket("NASDAQ").Id);
+            var stock03 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)).Id,"AAPL", new StockMarket("NASDAQ").Id);
+            var stock04 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)).Id,"AAPL", new StockMarket("NASDAQ").Id);
+            var stock05 = new Stock(new Company("APPLE", new Document("123", EDocumentType.CNPJ)).Id,"AAPL", new StockMarket("NASDAQ").Id);
             stock01.InactivateStock();
             stock04.InactivateStock();
 

@@ -30,5 +30,6 @@ namespace Stocks.Domain.Api.Controllers
         {
             return (GenericCommandResult) handler.Handle(command);
         }
+        
     }
 }

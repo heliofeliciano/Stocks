@@ -1,6 +1,7 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
 using Stocks.Shared.Commands;
+using System;
 
 namespace Stocks.Domain.Commands.Stock
 {
@@ -9,27 +10,35 @@ namespace Stocks.Domain.Commands.Stock
         public CreateStockCommand()
         {
         }
-        public CreateStockCommand(string companyName, string companyDocument, string ticker, string stockMarket)
+
+        public CreateStockCommand(Guid companyId, string ticker, Guid stockMarketId)
         {
-            CompanyName = companyName;
-            CompanyDocument = companyDocument;
+            CompanyId = companyId;
             Ticker = ticker;
-            StockMarket = stockMarket;
+            StockMarketId = stockMarketId;
         }
 
-        public string CompanyName { get; set; }
-        public string CompanyDocument { get; set; }
+        //public CreateStockCommand(string companyName, string companyDocument, string ticker, string stockMarket)
+        //{
+        //    CompanyName = companyName;
+        //    CompanyDocument = companyDocument;
+        //    Ticker = ticker;
+        //    StockMarket = stockMarket;
+        //}
+
+        public Guid CompanyId { get; set; }
         public string Ticker { get; set; }
-        public string StockMarket { get; set; }
+        public Guid StockMarketId { get; set; }
 
         public void Validate()
         {
             AddNotifications(new Contract()
                 .Requires()
-                .IsNotNullOrEmpty(CompanyName, "Company.Name", "Company Name is required")
-                .IsNotNullOrEmpty(CompanyDocument, "Company.Document", "Company Document is required")
-                .IsNotNullOrEmpty(StockMarket, "StockMarket", "Stock Market is required")
+                .IsNotNullOrEmpty(CompanyId.ToString(), "Company.Id", "Company is required")
+                .IsNotNullOrEmpty(StockMarketId.ToString(), "StockMarket.Id", "Stock Market is required")
                 .IsNotNullOrEmpty(Ticker, "Ticker", "Ticker is required")
+                .AreNotEquals(CompanyId.ToString(), "00000000-0000-0000-0000-000000000000", "Company.Id", "Company is not be empty")
+                .AreNotEquals(StockMarketId.ToString(), "00000000-0000-0000-0000-000000000000", "StockMarket.Id", "StockMarket is not be empty")
                 );
         }
     }

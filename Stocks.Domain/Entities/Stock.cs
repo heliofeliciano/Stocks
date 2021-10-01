@@ -7,17 +7,28 @@ namespace Stocks.Domain.Entities
     {
         public Stock()
         {
-        } 
-        
-        public Stock(Company company, string ticker, StockMarket stockMarket)
+        }
+
+        public Stock(Guid companyId, string ticker, Guid stockMarketId)
         {
-            Company = company;
+            CompanyId = companyId;
             Ticker = ticker;
-            StockMarket = stockMarket;
+            StockMarketId = stockMarketId;
             Active = true;
         }
+
+        //public Stock(Company company, string ticker, StockMarket stockMarket)
+        //{
+        //    Company = company;
+        //    Ticker = ticker;
+        //    StockMarket = stockMarket;
+        //    Active = true;
+        //}
+
+        public Guid CompanyId { get; private set; }
         public Company Company { get; private set; }
         public string Ticker { get; private set; }
+        public Guid StockMarketId { get; private set; }
         public StockMarket StockMarket { get; private set; }
         public bool Active { get; private set; }
         public void UpdateTicker(string ticker)

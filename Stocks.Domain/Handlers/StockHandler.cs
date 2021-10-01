@@ -7,6 +7,7 @@ using Stocks.Domain.Shared;
 using Stocks.Domain.ValueObjects;
 using Stocks.Shared.Commands;
 using Stocks.Shared.Handlers;
+using System.Collections.Generic;
 
 namespace Stocks.Domain.Handlers
 {
@@ -32,9 +33,7 @@ namespace Stocks.Domain.Handlers
                 return new GenericCommandResult(false, "Ooppss, Errors Occurred", command.Notifications);
 
             // Create Stock Object
-            var company = new Company(command.CompanyName, new Document(command.CompanyDocument, EDocumentType.CNPJ));
-            var stockMarket = new StockMarket(command.StockMarket);
-            var stock = new Stock(company, command.Ticker, stockMarket);
+            var stock = new Stock(command.CompanyId, command.Ticker, command.StockMarketId);
 
             // Save in database
             _stockRepository.Create(stock);
@@ -42,7 +41,7 @@ namespace Stocks.Domain.Handlers
             // Return message to user
             return new GenericCommandResult(true, "Saved sucessfully", stock);
         }
-
+        
         public ICommandResult Handle(UpdateTickerCommand command)
         {
             // Fail Fast Validation
