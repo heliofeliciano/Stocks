@@ -33,7 +33,7 @@ namespace Stocks.Domain.Handlers
                 return new GenericCommandResult(false, "Ooppss, Errors Occurred", command.Notifications);
 
             // Create Stock Object
-            var stock = new Stock(command.CompanyId, command.Ticker, command.StockMarketId);
+            var stock = new Stock(command.CompanyId, command.Ticker, command.StockMarketId, (EStockType) command.StockType);
 
             // Save in database
             _stockRepository.Create(stock);

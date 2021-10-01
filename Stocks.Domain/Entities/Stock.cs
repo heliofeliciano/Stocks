@@ -1,4 +1,5 @@
-﻿using Stocks.Domain.Shared.Entities;
+﻿using Stocks.Domain.Enums;
+using Stocks.Domain.Shared.Entities;
 using System;
 
 namespace Stocks.Domain.Entities
@@ -9,25 +10,19 @@ namespace Stocks.Domain.Entities
         {
         }
 
-        public Stock(Guid companyId, string ticker, Guid stockMarketId)
+        public Stock(Guid companyId, string ticker, Guid stockMarketId, EStockType eStockType)
         {
             CompanyId = companyId;
             Ticker = ticker;
             StockMarketId = stockMarketId;
+            EStockType = eStockType;
             Active = true;
         }
-
-        //public Stock(Company company, string ticker, StockMarket stockMarket)
-        //{
-        //    Company = company;
-        //    Ticker = ticker;
-        //    StockMarket = stockMarket;
-        //    Active = true;
-        //}
 
         public Guid CompanyId { get; private set; }
         public Company Company { get; private set; }
         public string Ticker { get; private set; }
+        public EStockType EStockType { get; private set; }
         public Guid StockMarketId { get; private set; }
         public StockMarket StockMarket { get; private set; }
         public bool Active { get; private set; }

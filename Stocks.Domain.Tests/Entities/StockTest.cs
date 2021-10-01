@@ -8,12 +8,18 @@ namespace Stocks.Domain.Tests.Entities
     [TestClass]
     public class StockTest
     {
-        private readonly Stock _validStock = new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)).Id, "CT", new StockMarket("B3").Id);
+        private readonly Stock _validStock = new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)).Id, "CT", new StockMarket("B3").Id, EStockType.Stock);
 
         [TestMethod]
         public void Dado_um_novo_stock_o_campo_active_deve_ser_verdadeiro()
         {
             Assert.AreEqual(true, _validStock.Active);
+        } 
+        
+        [TestMethod]
+        public void Dado_um_novo_stock_type_BDR_ticker_deve_terminar_com_34()
+        {
+            Assert.Fail();
         } 
 
         [TestMethod]

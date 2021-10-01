@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stocks.Domain.Commands.Stock;
+using Stocks.Domain.Enums;
 using Stocks.Domain.Handlers;
 using Stocks.Domain.Shared;
 using Stocks.Domain.Tests.Repositories;
@@ -24,7 +25,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_company_vazio_retornar_invalido()
         {
-            var command = new CreateStockCommand(_companyIdEmpty, ticker, stockMarketId);
+            var command = new CreateStockCommand(_companyIdEmpty, ticker, stockMarketId, (int)EStockType.BDR);
             _result = (GenericCommandResult) _handler.Handle(command);
 
             Assert.AreEqual(false, _result.Success);
@@ -33,7 +34,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_company_naovazio_retornar_valido()
         {
-            var command = new CreateStockCommand(_companyId, ticker, stockMarketId);
+            var command = new CreateStockCommand(_companyId, ticker, stockMarketId, (int)EStockType.BDR);
             var _result = (GenericCommandResult)_handler.Handle(command);
 
             Assert.AreEqual(true, _result.Success);
@@ -42,7 +43,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_stockMarket_vazio_retornar_invalido()
         {
-            var command = new CreateStockCommand(_companyId, ticker, stockMarketIdEmpty);
+            var command = new CreateStockCommand(_companyId, ticker, stockMarketIdEmpty, (int)EStockType.BDR);
             var _result = (GenericCommandResult)_handler.Handle(command);
 
             Assert.AreEqual(false, _result.Success);
@@ -51,7 +52,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_stockMarket_naovazio_retornar_valido()
         {
-            var command = new CreateStockCommand(_companyId, ticker, stockMarketId);
+            var command = new CreateStockCommand(_companyId, ticker, stockMarketId, (int)EStockType.BDR);
             var _result = (GenericCommandResult)_handler.Handle(command);
 
             Assert.AreEqual(true, _result.Success);
@@ -60,7 +61,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_ticker_vazio_retornar_invalido()
         {
-            var command = new CreateStockCommand(_companyId, tickerEmpty, stockMarketId);
+            var command = new CreateStockCommand(_companyId, tickerEmpty, stockMarketId, (int)EStockType.BDR);
             var _result = (GenericCommandResult)_handler.Handle(command);
 
             Assert.AreEqual(false, _result.Success);
@@ -69,7 +70,7 @@ namespace Stocks.Domain.Tests.HandlerTests
         [TestMethod]
         public void Dado_ticker_naovazio_retornar_valido()
         {
-            var command = new CreateStockCommand(_companyId, ticker, stockMarketId);
+            var command = new CreateStockCommand(_companyId, ticker, stockMarketId, (int)EStockType.BDR);
             var _result = (GenericCommandResult)_handler.Handle(command);
 
             Assert.AreEqual(true, _result.Success);

@@ -30,7 +30,7 @@ namespace Stocks.Domain.Tests.Repositories
 
         public Stock GetById(Guid id)
         {
-            return new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)).Id, "CT", new StockMarket("B3").Id);
+            return new Stock(new Company("Company Test", new Document("123", EDocumentType.CNPJ)).Id, "CT", new StockMarket("B3").Id, EStockType.BDR);
         }
 
         public void Update(Stock stock)

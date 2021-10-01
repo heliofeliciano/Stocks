@@ -33,6 +33,7 @@ namespace Stocks.Domain.Infra.Contexts
             modelBuilder.Entity<Stock>().ToTable("Stock");
             modelBuilder.Entity<Stock>().Property(x => x.Id);
             modelBuilder.Entity<Stock>().Property(x => x.Ticker);
+            modelBuilder.Entity<Stock>().Property(x => x.EStockType);
             modelBuilder.Entity<Stock>().Property(x => x.Active).HasColumnType("bit");
             modelBuilder.Entity<Stock>().HasOne<Company>(c => c.Company);
             modelBuilder.Entity<Stock>().HasOne<StockMarket>(s => s.StockMarket);

@@ -1,5 +1,6 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
+using Stocks.Domain.Enums;
 using Stocks.Shared.Commands;
 using System;
 
@@ -11,11 +12,12 @@ namespace Stocks.Domain.Commands.Stock
         {
         }
 
-        public CreateStockCommand(Guid companyId, string ticker, Guid stockMarketId)
+        public CreateStockCommand(Guid companyId, string ticker, Guid stockMarketId, int stockType)
         {
             CompanyId = companyId;
             Ticker = ticker;
             StockMarketId = stockMarketId;
+            StockType = stockType;
         }
 
         //public CreateStockCommand(string companyName, string companyDocument, string ticker, string stockMarket)
@@ -29,6 +31,7 @@ namespace Stocks.Domain.Commands.Stock
         public Guid CompanyId { get; set; }
         public string Ticker { get; set; }
         public Guid StockMarketId { get; set; }
+        public int StockType { get; set; }
 
         public void Validate()
         {
