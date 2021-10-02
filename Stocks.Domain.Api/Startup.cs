@@ -30,10 +30,12 @@ namespace Stocks.Domain.Api
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<IStockRepository, StockRepository>();
             services.AddTransient<IStockMarketRepository, StockMarketRepository>();
+            services.AddTransient<IBrokerRepository, BrokerRepository>();
 
             services.AddTransient<CompanyHandler, CompanyHandler>();
             services.AddTransient<StockMarketHandler, StockMarketHandler>();
             services.AddTransient<StockHandler, StockHandler>();
+            services.AddTransient<BrokerHandler, BrokerHandler>();
 
             services.AddSwaggerGen(c =>
             {

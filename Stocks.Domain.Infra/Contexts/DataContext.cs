@@ -14,6 +14,7 @@ namespace Stocks.Domain.Infra.Contexts
         public DbSet<Company> Companies { get; set; }
         public DbSet<StockMarket> StockMarkets { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Broker> Brokers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,10 @@ namespace Stocks.Domain.Infra.Contexts
             modelBuilder.Entity<Stock>().Property(x => x.Active).HasColumnType("bit");
             modelBuilder.Entity<Stock>().HasOne<Company>(c => c.Company);
             modelBuilder.Entity<Stock>().HasOne<StockMarket>(s => s.StockMarket);
+
+            modelBuilder.Entity<Broker>().ToTable("Broker");
+            modelBuilder.Entity<Broker>().Property(x => x.Id);
+            modelBuilder.Entity<Broker>().Property(x => x.Name).HasColumnType("varchar(100)");
         }
     }
 }

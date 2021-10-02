@@ -10,7 +10,7 @@ namespace Stocks.Domain.Api.Controllers
 {
     [ApiController]
     [Route("v1/companies")]
-    public class CompanyController : ControllerBase
+    public class CompanyController : Controller
     {
         [Route("")]
         [HttpGet]
